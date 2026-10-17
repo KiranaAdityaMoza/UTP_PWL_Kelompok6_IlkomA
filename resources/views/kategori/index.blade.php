@@ -36,17 +36,7 @@
 <body>
 
     <!-- Navbar Sederhana -->
-    <div class="navbar">
-        <h1>FixIt - Manajemen Kategori</h1>
-        <div style="display: flex; align-items: center;">
-            <span class="badge-role">{{ Auth::user()->role }}</span>
-            <a href="{{ route('dashboard') }}" style="margin-right: 20px;">Dashboard</a>
-            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                @csrf
-                <button type="submit" style="background: none; border: none; color: white; cursor: pointer; font-size: 14px; font-weight: 500;">Logout</button>
-            </form>
-        </div>
-    </div>
+    @include('layouts.navigation')
 
     <div class="container">
 
@@ -124,5 +114,8 @@
 
     </div>
 
+    <!-- Footer -->
+    @include('layouts.footer')
+
 </body>
-</html
+</html>

@@ -7,18 +7,10 @@
     <!-- Menggunakan CDN Tailwind agar aman dari error Vite -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-100 min-h-screen">
+<body class="bg-slate-100 min-h-screen flex flex-col">
 
     <!-- Navbar -->
-    <nav class="bg-blue-900 text-white p-4 shadow-md flex justify-between items-center px-8">
-        <h1 class="text-xl font-bold">FixIt - Dashboard</h1>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="bg-red-600 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-red-700 transition">
-                Logout
-            </button>
-        </form>
-    </nav>
+    @include('layouts.navigation')
 
     <!-- Konten Utama Dashboard -->
     <div class="max-w-4xl mx-auto mt-10 p-8 bg-white rounded-xl shadow-lg border border-slate-200">
@@ -35,8 +27,34 @@
             <p class="text-sm text-slate-500">
                 Status Akun: <span class="font-semibold text-blue-600 uppercase">{{ Auth::user()->role ?? 'Mahasiswa' }}</span>
             </p>
+
+            @if (Auth::user()->role === 'admin')
+                <div class="mt-6 pt-6 border-t border-slate-200">
+                    <h3 class="text-base font-bold text-slate-800 mb-3">Menu Khusus Admin:</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <a href="{{ route('admin.laporan.index') }}" class="p-4 bg-blue-50 border border-blue-200 rounded-xl hover:bg-blue-100/80 transition flex items-center justify-between group">
+                            <div>
+                                <div class="font-bold text-blue-900 group-hover:underline">Kelola Laporan Masuk</div>
+                                <div class="text-xs text-blue-700 mt-1">Pantau & ubah status laporan kerusakan mahasiswa</div>
+                            </div>
+                            <span class="text-blue-900 font-bold text-lg">&rarr;</span>
+                        </a>
+
+                        <a href="{{ route('kategori.index') }}" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:bg-slate-100 transition flex items-center justify-between group">
+                            <div>
+                                <div class="font-bold text-slate-900 group-hover:underline">Kelola Kategori</div>
+                                <div class="text-xs text-slate-600 mt-1">Tambah, edit, dan hapus kategori fasilitas</div>
+                            </div>
+                            <span class="text-slate-900 font-bold text-lg">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
+
+    <!-- Footer -->
+    @include('layouts.footer')
 
 </body>
 </html>
