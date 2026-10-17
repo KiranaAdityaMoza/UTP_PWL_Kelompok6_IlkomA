@@ -19,6 +19,8 @@
         .form-control:focus { border-color: #1e3a8a; box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1); }
         .btn-submit { background-color: #1e3a8a; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
         .btn-submit:hover { background-color: #172554; }
+        .table-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .table-heading h3 { margin: 0; }
         .btn-warning { background-color: #d97706; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 12px; font-weight: 600; }
         .btn-warning:hover { background-color: #b45309; }
         .btn-danger { background-color: #dc2626; color: white; padding: 6px 12px; border-radius: 4px; border: none; cursor: pointer; font-size: 12px; font-weight: 600; }
@@ -48,7 +50,7 @@
         @endif
 
         <!-- Form Tambah / Edit Kategori -->
-        <div class="card">
+        <div class="card" id="category-form-card" @if (!isset($kategori) && !$errors->any()) hidden @endif>
             <h3>{{ isset($kategori) ? 'Edit Kategori Kerusakan' : 'Tambah Kategori Baru' }}</h3>
             
             <form action="{{ isset($kategori) ? route('kategori.update', $kategori->id) : route('kategori.store') }}" method="POST">
@@ -77,7 +79,20 @@
 
         <!-- Tabel Daftar Kategori -->
         <div class="card">
-            <h3>Daftar Kategori Kerusakan</h3>
+            <div class="table-heading">
+                <h3>Daftar Kategori Kerusakan</h3>
+                @if (!isset($kategori))
+                    <button
+                        type="button"
+                        id="category-form-toggle"
+                        class="btn-submit"
+                        aria-controls="category-form-card"
+                        aria-expanded="{{ $errors->any() ? 'true' : 'false' }}"
+                    >
+                        Tambah Kategori Kerusakan
+                    </button>
+                @endif
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -113,6 +128,24 @@
         </div>
 
     </div>
+
+    <script>
+        const categoryFormToggle = document.getElementById('category-form-toggle');
+        const categoryFormCard = document.getElementById('category-form-card');
+
+        if (categoryFormToggle && categoryFormCard) {
+            categoryFormToggle.addEventListener('click', () => {
+                const shouldOpen = categoryFormCard.hidden;
+                categoryFormCard.hidden = !shouldOpen;
+                categoryFormToggle.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+
+                if (shouldOpen) {
+                    categoryFormCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.getElementById('nama_kategori').focus({ preventScroll: true });
+                }
+            });
+        }
+    </script>
 
     <!-- Footer -->
     @include('layouts.footer')

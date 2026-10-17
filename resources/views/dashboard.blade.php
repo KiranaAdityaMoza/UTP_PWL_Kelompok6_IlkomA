@@ -31,7 +31,7 @@
             @if (Auth::user()->role === 'admin')
                 <div class="mt-6 pt-6 border-t border-slate-200">
                     <h3 class="text-base font-bold text-slate-800 mb-3">Menu Khusus Admin:</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 gap-4">
                         <a href="{{ route('admin.laporan.index') }}" class="p-4 bg-blue-50 border border-blue-200 rounded-xl hover:bg-blue-100/80 transition flex items-center justify-between group">
                             <div>
                                 <div class="font-bold text-blue-900 group-hover:underline">Kelola Laporan Masuk</div>
@@ -39,11 +39,24 @@
                             </div>
                             <span class="text-blue-900 font-bold text-lg">&rarr;</span>
                         </a>
-
-                        <a href="{{ route('kategori.index') }}" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:bg-slate-100 transition flex items-center justify-between group">
+                    </div>
+                </div>
+            @elseif (Auth::user()->role === 'mahasiswa')
+                <div class="mt-6 pt-6 border-t border-slate-200">
+                    <h3 class="text-base font-bold text-slate-800 mb-3">Menu Mahasiswa:</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <a href="{{ route('pengaduan.create') }}" class="p-4 bg-blue-50 border border-blue-200 rounded-xl hover:bg-blue-100/80 transition flex items-center justify-between group">
                             <div>
-                                <div class="font-bold text-slate-900 group-hover:underline">Kelola Kategori</div>
-                                <div class="text-xs text-slate-600 mt-1">Tambah, edit, dan hapus kategori fasilitas</div>
+                                <div class="font-bold text-blue-900 group-hover:underline">Buat Pengaduan</div>
+                                <div class="text-xs text-blue-700 mt-1">Laporkan kerusakan fasilitas kampus</div>
+                            </div>
+                            <span class="text-blue-900 font-bold text-lg">&rarr;</span>
+                        </a>
+
+                        <a href="{{ route('pengaduan.index') }}" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:bg-slate-100 transition flex items-center justify-between group">
+                            <div>
+                                <div class="font-bold text-slate-900 group-hover:underline">Riwayat Pengaduan</div>
+                                <div class="text-xs text-slate-600 mt-1">Pantau status laporan yang sudah dikirim</div>
                             </div>
                             <span class="text-slate-900 font-bold text-lg">&rarr;</span>
                         </a>

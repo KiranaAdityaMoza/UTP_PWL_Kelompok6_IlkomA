@@ -26,7 +26,6 @@
                     <span class="text-xs font-bold px-2.5 py-1 bg-blue-100 text-blue-800 rounded-full">Khusus Admin</span>
                 </h1>
                 <p class="text-sm text-slate-500 mt-1">
-                    Pantau dan perbarui status laporan kerusakan fasilitas kampus yang dikirimkan oleh seluruh mahasiswa.
                 </p>
             </div>
             <div class="flex items-center gap-2">

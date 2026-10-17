@@ -10,7 +10,7 @@ class KategoriController extends Controller
     // Menampilkan daftar kategori & form tambah
     public function index()
     {
-        $kategoris = Kategori::all();
+        $kategoris = Kategori::all()->unique('nama_kategori');
         return view('kategori.index', compact('kategoris'));
     }
 

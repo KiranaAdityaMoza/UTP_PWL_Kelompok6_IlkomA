@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::query()->delete();
+        $this->call(KategoriSeeder::class);
 
         User::factory()->create([
             'name' => 'Test User',

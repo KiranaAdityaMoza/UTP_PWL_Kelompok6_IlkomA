@@ -56,15 +56,18 @@
 
 <!-- Navbar Sederhana Seragam FixIt -->
 <div class="fixit-navbar">
-    <h1>FixIt - @if(request()->routeIs('admin.laporan.*')) Kelola Laporan Masuk @elseif(request()->routeIs('kategori.*')) Manajemen Kategori @else Dashboard @endif</h1>
-    <div style="display: flex; align-items: center;">
+    <h1>FixIt - @if(request()->routeIs('admin.laporan.*')) Kelola Laporan Masuk @elseif(request()->routeIs('kategori.*')) Manajemen Kategori @elseif(request()->routeIs('pengaduan.*')) Pengaduan Mahasiswa @else Dashboard @endif</h1>
+    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px;">
         @auth
             <span class="badge-role">{{ Auth::user()->role }}</span>
-            <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'nav-active' : '' }}" style="margin-right: 20px;">Dashboard</a>
+            <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'nav-active' : '' }}">Dashboard</a>
             
             @if(Auth::user()->role === 'admin')
-                <a href="{{ route('kategori.index') }}" class="{{ request()->routeIs('kategori.*') ? 'nav-active' : '' }}" style="margin-right: 20px;">Kelola Kategori</a>
-                <a href="{{ route('admin.laporan.index') }}" class="{{ request()->routeIs('admin.laporan.*') ? 'nav-active' : '' }}" style="margin-right: 20px;">Laporan Masuk</a>
+                <a href="{{ route('kategori.index') }}" class="{{ request()->routeIs('kategori.*') ? 'nav-active' : '' }}">Kelola Kategori</a>
+                <a href="{{ route('admin.laporan.index') }}" class="{{ request()->routeIs('admin.laporan.*') ? 'nav-active' : '' }}">Laporan Masuk</a>
+            @elseif(Auth::user()->role === 'mahasiswa')
+                <a href="{{ route('pengaduan.create') }}" class="{{ request()->routeIs('pengaduan.create') ? 'nav-active' : '' }}">Buat Pengaduan</a>
+                <a href="{{ route('pengaduan.index') }}" class="{{ request()->routeIs('pengaduan.*') ? 'nav-active' : '' }}">Riwayat Pengaduan</a>
             @endif
 
             <form action="{{ route('logout') }}" method="POST" style="display: inline; margin: 0;">
